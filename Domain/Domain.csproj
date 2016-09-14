@@ -42,8 +42,9 @@
   <ItemGroup>
     <Compile Include="ApplicationModule\Accounts\Events\GebruikerVerwijderdEvent.cs" />
     <Compile Include="ApplicationModule\Accounts\Gebruiker.cs" />
-    <Compile Include="ApplicationModule\Accounts\Repository\GebruikerRepository.cs" />
+    <Compile Include="ApplicationModule\Accounts\Repository\IGebruikerRepository.cs" />
     <Compile Include="ApplicationModule\Logger\LogItem.cs" />
+    <Compile Include="ApplicationModule\Logger\Repository\ILogItemRepository.cs" />
     <Compile Include="VoorbeeldModule\Voorbeeld\VoorbeeldjeEntiteit.cs" />
     <Compile Include="VoorbeeldModule\Voorbeeld\VoorbeeldjeValueObject.cs" />
     <Compile Include="DependencyContracts\IEmailSender.cs" />
