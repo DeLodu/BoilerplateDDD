@@ -1,2 +1,4 @@
 # BoilerplateDDD
-DDD template
+
+Template met Domain Driven Design
+
