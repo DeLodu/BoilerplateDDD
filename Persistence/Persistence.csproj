@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Generic\GenericRepository.cs" />
+    <Compile Include="Repository\ApplicationModule\LogItemRepository.cs" />
     <Compile Include="Repository\ApplicationModule\GebruikerRepository.cs" />
     <Compile Include="Repository\KanbanModule\TaakRepository.cs" />
     <Compile Include="UoW\UnitOfWork.cs" />

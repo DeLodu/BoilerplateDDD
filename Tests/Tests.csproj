@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="ApplicationModule\GebruikerTest.cs" />
     <Compile Include="ApplicationModule\LogItemTest.cs" />
+    <Compile Include="_Base\TestFactory.cs" />
     <Compile Include="KanbanModule\TaakTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UoW\UnitOfWorkTest.cs" />
@@ -90,6 +91,10 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{b27e8e1d-682d-42ef-bb53-a3ef4f21e92a}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Events\Events.csproj">
+      <Project>{B0A9AC14-9766-403C-88D0-97ADFCDD93A5}</Project>
+      <Name>Events</Name>
     </ProjectReference>
     <ProjectReference Include="..\Persistence\Persistence.csproj">
       <Project>{7ba2fa5e-fe9d-4937-84c0-b57f77ecfd14}</Project>

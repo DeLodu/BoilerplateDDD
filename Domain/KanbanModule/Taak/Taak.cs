@@ -1,6 +1,7 @@
 ﻿using System;
 using Domain.Events;
 using Domain.Generic;
+using Domain.Helper;
 
 namespace Domain.KanbanModule.Taak
 {
@@ -11,6 +12,10 @@ namespace Domain.KanbanModule.Taak
         public Taak(string omschKort)
         {
             NieuwUID();
+
+            if(string.IsNullOrEmpty(omschKort))
+                FoutMelding.Maak("Omschrijving is verplicht!");
+
             OmschrijvingKort = omschKort;
             DomainEvent<TaakAangemaaktEvent>.Raise(new TaakAangemaaktEvent(this));
         }
@@ -21,6 +26,9 @@ namespace Domain.KanbanModule.Taak
 
         public void SetStatus(Status stat)
         {
+            if(stat == null)
+                throw new Exception("Status kan niet NULL zijn!");
+
             Status = stat;
             StatusUID = stat.UID;
         }
@@ -29,6 +37,9 @@ namespace Domain.KanbanModule.Taak
 
         public string OmschrijvingLang { get; private set; }
 
-
+        public void SetOmschrijvingLang(string omschrijving)
+        {
+            OmschrijvingLang = omschrijving;
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace Domain.ApplicationModule.Accounts
     {
         public static bool ControleerOfLoginBestaat(IGebruikerRepository repos, string loginNaam)
         {
-            var gebr = repos.GetByLoginNaam(loginNaam);
+            var gebr = repos.GetByLogin(loginNaam);
 
             return gebr != null;
         }

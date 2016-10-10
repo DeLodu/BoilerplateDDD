@@ -1,12 +1,13 @@
+using Domain.DependencyContracts;
 using Domain.KanbanModule.Taak;
 
 namespace Persistence.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-    using Persistence.UoW;
+    using UoW;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<UnitOfWorkDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<UnitOfWorkDbContext>
     {
         public Configuration()
         {
@@ -21,6 +22,11 @@ namespace Persistence.Migrations
                 new Status(Guid.Parse("f8cdbbfe-4046-4a4e-ae69-ffe25e7b6dc3"), "Goedgekeurd"), 
                 new Status(Guid.Parse("407d1448-24ed-4141-b965-9c27575cf73d"), "Bezig"), 
                 new Status(Guid.Parse("f6b756ce-5dbe-4ac6-9a1b-c14f1156e93f"), "Afgewerkt"));
+        }
+
+        public void SeedDB(UnitOfWork uow)
+        {
+            Seed((UnitOfWorkDbContext)uow.ConnectionDB);
         }
     }
 }

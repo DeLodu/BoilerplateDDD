@@ -2,11 +2,12 @@
 using Domain.ApplicationModule.Accounts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FluentAssertions;
+using Tests.Base;
 
-namespace Domain.Test.BC_Accounts
+namespace Tests.Domain.ApplicationModule
 {
     [TestClass]
-    public class GebruikerTest
+    public class GebruikerTest : TestFactory
     {
 
         [TestMethod]

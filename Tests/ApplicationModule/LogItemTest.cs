@@ -2,11 +2,12 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain.ApplicationModule.Logger;
 using FluentAssertions;
+using Tests.Base;
 
-namespace Domain.Test.ApplicationModule
+namespace Tests.Domain.ApplicationModule
 {
     [TestClass]
-    public class LogItemTest
+    public class LogItemTest : TestFactory
     {
         [TestMethod]
         public void LogItemAanmakenTest()

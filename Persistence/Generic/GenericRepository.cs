@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Domain.DependencyContracts;
 using Domain.Generic;
 
@@ -8,7 +9,7 @@ namespace Persistence.Generic
     public abstract class GenericRepository<TEntiteit> : IRepository<TEntiteit>
         where TEntiteit : Entiteit
     {
-        private readonly IUnitOfWork _uow;
+        protected readonly IUnitOfWork _uow;
 
         protected internal readonly List<string> _includes = new List<string>();
 
@@ -29,9 +30,15 @@ namespace Persistence.Generic
             
         }
 
+        protected internal virtual IQueryable<TDomainObject> GetSelect<TDomainObject>()
+            where TDomainObject : DomainObject
+        {
+            return _uow.GetSelection<TDomainObject>().AsQueryable();
+        }
+
         public TEntiteit GetByUid(Guid uID)
         {
-            throw new NotImplementedException();
+            return GetSelect<TEntiteit>().FirstOrDefault(e => e.UID == uID);
         }
 
         public TEntiteit GetGraphByUid(Guid uID)
@@ -41,7 +48,7 @@ namespace Persistence.Generic
 
         public IEnumerable<TEntiteit> GetSelection(Func<TEntiteit, bool> spec)
         {
-            throw new NotImplementedException();
+            return GetSelect<TEntiteit>().Where(spec).ToList();
         }
 
         public IEnumerable<TEntiteit> GetPageSelection(Func<TEntiteit, bool> spec, int pagesize, int pagenummer, string sort, bool order)
@@ -51,27 +58,27 @@ namespace Persistence.Generic
 
         public int GetSelectionTotal(Func<TEntiteit, bool> spec)
         {
-            throw new NotImplementedException();
+            return GetSelect<TEntiteit>().Count(spec);
         }
 
         public void AddNew(TEntiteit ent)
         {
-            throw new NotImplementedException();
+            _uow.AddNew(ent);
         }
 
         public void Remove(TEntiteit ent)
         {
-            throw new NotImplementedException();
+            _uow.Remove(ent);
         }
 
         public void Update(TEntiteit ent)
         {
-            throw new NotImplementedException();
+            _uow.Attach(ent);
         }
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            _uow.Commit();
         }
     }
 }

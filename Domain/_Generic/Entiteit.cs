@@ -2,7 +2,7 @@
 
 namespace Domain.Generic
 {
-    public class Entiteit : DomainObject
+    public abstract class Entiteit : DomainObject
     {
         public Guid UID { get; protected set; }
 

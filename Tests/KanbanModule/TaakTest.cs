@@ -1,35 +1,57 @@
 ﻿using System;
+using System.Data.Entity;
+using System.Linq;
 using Domain.KanbanModule.Taak;
-using Effort;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Persistence.UoW;
+using Tests.Base;
 
-namespace Domain.Test.KanbanModule
+namespace Tests.Domain.KanbanModule
 {
     [TestClass]
-    public class TaakTest
+    public class TaakTest : TestFactory
     {
-        private UnitOfWorkDbContext _setupUoW;
-        private string _connectionString;
-
-        [TestInitialize]
-        public void InitTest()
-        {
-            var connection = DbConnectionFactory.CreatePersistent("test");
-            _setupUoW = new UnitOfWorkDbContext(connection);
-        }
-
 
         [TestMethod]
         public void TaakAanmakenTest()
         {
+            var result = new Taak("test");
+            result.SetOmschrijvingLang("test lang");
 
+            result.Status.Naam.Should().Be("Nieuw");
+            result.OmschrijvingKort.Should().Be("test");
+            result.OmschrijvingLang.Should().Be("test lang");
+        }
+
+        [TestMethod]
+        public void TaakStatusNullTest()
+        {
             var result = new Taak("test");
 
-            result.Status.Naam.Should().Be("");
-            result.OmschrijvingKort.Should().Be("test");
-            result.OmschrijvingLang.Should().Be("");
+            Action act = () => result.SetStatus(null);
+
+            act.ShouldThrow<Exception>().Where(e => e.Message == "Status kan niet NULL zijn!");
+        }
+
+        [TestMethod]
+        public void TaakVeranderStatusTest()
+        {
+            var result = new Taak("test");
+            var status = _UnitOfWork.GetSelection<Status>().OrderBy(e => e.UID).Skip(1).FirstOrDefault();
+
+            result.SetStatus(status);
+
+            result.Status.Naam.Should().Be(status.Naam);
+        }
+
+        [TestMethod]
+        public void TaakAanmakenNULLTest()
+        {
+            Action act1 = () => new Taak("");
+            Action act2 = () => new Taak(null);
+
+            act1.ShouldThrow<Exception>().Where(e => e.Message == "Omschrijving is verplicht!");
+            act2.ShouldThrow<Exception>().Where(e => e.Message == "Omschrijving is verplicht!");
         }
     }
 }

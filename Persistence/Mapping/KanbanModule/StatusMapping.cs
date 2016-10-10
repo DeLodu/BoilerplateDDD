@@ -15,7 +15,7 @@ namespace Persistence.Mapping
                 e.UID,
             });
 
-            Property(e => e.Omschrijving)
+            Property(e => e.Naam)
                 .IsRequired()
                 .HasMaxLength(40);
 

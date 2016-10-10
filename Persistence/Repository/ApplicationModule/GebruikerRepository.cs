@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Domain.ApplicationModule.Accounts;
 using Domain.DependencyContracts;
 using Persistence.Generic;
@@ -11,9 +12,9 @@ namespace Persistence.Repository
 
         public GebruikerRepository(IUnitOfWork uow) : base (uow) { }
 
-        public Gebruiker GetByLoginNaam(string Naam)
+        public Gebruiker GetByLogin(string login)
         {
-            throw new NotImplementedException();
+            return GetSelect<Gebruiker>().FirstOrDefault(e => e.Login == login);
         }
     }
 }
