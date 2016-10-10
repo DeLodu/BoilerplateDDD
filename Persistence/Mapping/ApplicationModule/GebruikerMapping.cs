@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data.Entity.ModelConfiguration;
-using Domain.ApplicationModule;
+using Domain.ApplicationModule.Accounts;
 
 namespace Persistence.Mapping
 {

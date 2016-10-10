@@ -2,13 +2,10 @@
 using Domain.Generic;
 using Domain.Helper;
 
-namespace Domain.ApplicationModule
+namespace Domain.ApplicationModule.Accounts
 {
     public class Gebruiker : Entiteit
     {
-        [Obsolete("Constructor niet toegestaan!", true)]
-        public Gebruiker() {}
-
         public Gebruiker(string login)
         {
             NieuwUID();

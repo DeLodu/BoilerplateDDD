@@ -1,17 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Events
 {
-    public static class DomainEvent
+    public class DomainEvent<TEvent>
+        where TEvent : IDomainEvent
     {
-        
-        public static void RegisterCallback()
+        // Collection is een Singleton Pattern
+        [ThreadStatic]
+        private static List<Action<TEvent>> _actions;
+
+        private DomainEvent() { }
+
+        public static void Register(Action<TEvent> callback)
         {
-            
+            if (_actions == null)
+                _actions = new List<Action<TEvent>>();
+
+            _actions.Add(callback);
         }
 
-        //Clear Callbacks
+        public static void ClearCallbacks()
+        {
+            _actions = null;
+        }
 
-        //RaiseEvent
+        public static void Raise(TEvent eventInstance)
+
+        {
+            if (_actions == null) return;
+
+            foreach (var action in _actions)
+            {
+                action.Invoke(eventInstance);
+            }
+        }
     }
 }

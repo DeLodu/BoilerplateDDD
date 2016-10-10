@@ -2,7 +2,7 @@
 
 namespace Domain.ApplicationModule.Logger
 {
-    public static class LogService
+    public static class LoggerService
     {
         public static LogItem LogFactory(string melding, string loginNaam)
         {

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B27E8E1D-682D-42EF-BB53-A3EF4F21E92A}</ProjectGuid>
+    <ProjectGuid>{B0A9AC14-9766-403C-88D0-97ADFCDD93A5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Domain</RootNamespace>
-    <AssemblyName>Domain</AssemblyName>
+    <RootNamespace>Events</RootNamespace>
+    <AssemblyName>Events</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,38 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationModule\Accounts\Events\GebruikerVerwijderdEvent.cs" />
-    <Compile Include="ApplicationModule\Accounts\Gebruiker.cs" />
-    <Compile Include="ApplicationModule\Accounts\Repository\IGebruikerRepository.cs" />
-    <Compile Include="ApplicationModule\Accounts\Service\AccountService.cs" />
-    <Compile Include="ApplicationModule\Logger\LogItem.cs" />
-    <Compile Include="ApplicationModule\Logger\Repository\ILogItemRepository.cs" />
-    <Compile Include="ApplicationModule\Logger\Service\LoggerService.cs" />
-    <Compile Include="KanbanModule\Taak\EventActions\SetStatusInitTaakAction.cs" />
-    <Compile Include="KanbanModule\Taak\Events\TaakAangemaaktEvent.cs" />
-    <Compile Include="KanbanModule\Taak\Repository\ITaakRepository.cs" />
-    <Compile Include="KanbanModule\Taak\Status.cs" />
-    <Compile Include="KanbanModule\Taak\Taak.cs" />
-    <Compile Include="_Events\DomainEvent.cs" />
-    <Compile Include="_Events\IEventHandler.cs" />
-    <Compile Include="_Events\IDomainEvent.cs" />
-    <Compile Include="_DependencyContracts\IEmailSender.cs" />
-    <Compile Include="_DependencyContracts\ILogFactory.cs" />
-    <Compile Include="_DependencyContracts\IRepository.cs" />
-    <Compile Include="_DependencyContracts\ISMSSender.cs" />
-    <Compile Include="_DependencyContracts\IUnitOfWork.cs" />
-    <Compile Include="_Generic\DomainObject.cs" />
-    <Compile Include="_Generic\Entiteit.cs" />
-    <Compile Include="_Generic\ValueObject.cs" />
-    <Compile Include="_Helper\DateTimeHelpers.cs" />
-    <Compile Include="_Helper\EmailAdres.cs" />
-    <Compile Include="_Helper\FoutMelding.cs" />
-    <Compile Include="_Helper\PasswordValidator.cs" />
-    <Compile Include="_Helper\TekstValidator.cs" />
+    <Compile Include="EventAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ApplicationModule\Logger\Events\" />
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{B27E8E1D-682D-42EF-BB53-A3EF4F21E92A}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Persistence\Persistence.csproj">
+      <Project>{7BA2FA5E-FE9D-4937-84C0-B57F77ECFD14}</Project>
+      <Name>Persistence</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -12,7 +12,7 @@ namespace Domain.DependencyContracts
 
         void Attach(DomainObject obj);
 
-        IQueryable GetSelection<TDomainObject>()
+        IQueryable<TDomainObject> GetSelection<TDomainObject>()
             where TDomainObject : DomainObject;
 
         void Commit();

@@ -30,10 +30,21 @@ namespace Persistence.Migrations
                     })
                 .PrimaryKey(t => t.UID);
             
+            CreateTable(
+                "dbo.ta_Knb_Taak",
+                c => new
+                    {
+                        UID = c.Guid(nullable: false),
+                        OmschrijvingKort = c.String(nullable: false, maxLength: 150),
+                        OmschrijvingLang = c.String(),
+                    })
+                .PrimaryKey(t => t.UID);
+            
         }
         
         public override void Down()
         {
+            DropTable("dbo.ta_Knb_Taak");
             DropTable("dbo.ta_App_LogItem");
             DropTable("dbo.ta_App_Gebruiker");
         }

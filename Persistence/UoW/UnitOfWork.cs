@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Linq;
 using Domain.DependencyContracts;
@@ -23,9 +24,9 @@ namespace Persistence
             _ConnectionDB.Database.Connection.Open();
         }
 
-        internal UnitOfWork(DbContext connectionDB)
+        public UnitOfWork(DbConnection connection)
         {
-            _ConnectionDB = connectionDB;
+            _ConnectionDB = new UnitOfWorkDbContext(connection);
         }
 
         public UnitOfWork()
@@ -48,7 +49,7 @@ namespace Persistence
             _ConnectionDB.Entry(obj).State = EntityState.Modified;
         }
 
-        public IQueryable GetSelection<TDomainObject>()
+        public IQueryable<TDomainObject> GetSelection<TDomainObject>()
             where TDomainObject : DomainObject
         {
             return _ConnectionDB.Set<TDomainObject>().AsQueryable();
@@ -56,15 +57,31 @@ namespace Persistence
 
         public void Commit()
         {
+            string melding = "";
+            var valList = _ConnectionDB.GetValidationErrors();
+            if (valList.Any())
+            {
+                foreach (var valentry in valList)
+                {
+                    foreach (var val in valentry.ValidationErrors)
+                    {
+                        melding = $"{melding}/{val.ErrorMessage}";
+                    }
+                }
+                FoutMelding.Maak(melding);
+            }
+
             _ConnectionDB.Database.BeginTransaction();
+
             try
             {
                 _ConnectionDB.SaveChanges();
+                _ConnectionDB.Database.CurrentTransaction.Commit();
             }
             catch (Exception ex)
             {
                 _ConnectionDB.Database.CurrentTransaction.Rollback();
-                FoutMelding.Maak(ex.Message);
+                FoutMelding.Maak($"ERROR: {ex.InnerException.InnerException.Message}");
             }
         }
 

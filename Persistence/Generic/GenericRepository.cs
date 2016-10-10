@@ -20,7 +20,7 @@ namespace Persistence.Generic
 
         protected GenericRepository(IUnitOfWork uow)
         {
-            _uow = new UnitOfWork();
+            _uow = uow;
             GetIncludes();
         }
 

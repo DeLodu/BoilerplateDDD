@@ -2,7 +2,7 @@
 
 namespace Domain.Generic
 {
-    public class DomainObject
+    public abstract class DomainObject
     {
     }
 }
